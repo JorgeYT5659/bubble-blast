@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bubble Blast</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9ff3, #feca57, #48dbfb, #1dd1a1);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    header {
+      background: white;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    header img {
+      max-width: 220px;
+    }
+
+    h1 {
+      color: #00bfff;
+      font-size: 2em;
+      margin: 10px 0;
+      text-shadow: 1px 1px 4px white;
+    }
+    
+    .seccion {
+      background-color: rgba(255, 255, 255, 0.85);
+      margin: 20px auto;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 800px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .seccion h2 {
+      color: #ff6347;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border-bottom: 2px solid #ff6347;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .seccion p {
+      color: #555;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+
+    .lema {
+      color: #48dbfb;
+      font-size: 2.5em;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+
+    .galeria {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 40px auto;
+      max-width: 1200px;
+    }
+
+    .galeria img {
+      width: 220px;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .galeria img:hover {
+      transform: scale(1.1) rotate(2deg);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 20px;
+      background: #00bfff;
+      color: white;
+    }
+
+    /* Animación de burbujas */
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: rise 10s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://lh3.googleusercontent.com/rd-gg-dl/AJfQ9KTQ0Wya4zjqBMCB3KJp-DY5ps89267Bf4Etp-i6mi4FO5YcD6Et0JFJLiUSshAC2LWoGhyOkRluYywRGpsweSqWxvJUg3cyAtw3XJKwFqpadMx4hVpCX-7gMjIj-HpieDe1L1_LsqhmKqQqsJVRErkfDrNffMENuFqGY1mDEer_OCQVsgErNGQUDeOqVuUueg2OT3NoqylTkpx6tLB_XhMHOyVL_7dJJHFHnmqcDyDxHMngviOBfRfFhqfuqVXakb8FQIVGNC3cv5u1GW9FohMZtWmEuqPgv_Lag1_EacqejI9kfI09oxMpEG94Y0Jae2xRAYi2YmVL25__XfRrjQLkeBTJtFjsYhBuIVQLqv_R-lpH50XM7eWxRHZiGtuAJT6CbL-Hw77B6csDtuNaNeIlhodfdZ96uxgE6luZltfoa1vqLtTd-uMnCKuIrnwi_wWWwVK-9xjR1waCRpKWkudRVFmj2doA6fk6wFLZgu_U56VpD_wuNZuuKfL3ReLqX-MB5aGwLx3-hf04m5Yv4G-_Lq3ks68pZDvumvDp6HVXrQYy7T6eL6w6x5qsbW24V0GJYQN66UAllbcpGpKNReJW8UmGaStIEk8vpxWqDy4KbFeFpB84qQtIbCdUIgO7TfrIqcFG5EWxObgNAsnVxXIz4D3iikMKs__WJGwI2bT-rKUwZHA_JEAVLCWTTOfJBJvbxGCEwGRFyCJ-jkiw5RDZq4qwSdnp6-FcC5B0vXjw02yYYgAXIxmgRwugKhNYO8KSJz8lcGWmWJLxTNpZ8rH5dww3eHYcHdl1rIq5REWkCGhGjc9PPalhNwZ92qUkR232EWtnmOWhfjNTobeA6EJjDxHd2OHTLKmuqiZUU7obQPYHFXD2h26zHH0SmeK2Kut-Yn8Ys2JSPJ5Kq29IwWJ3hHkLPTt75yW51_zBrEPwHbPdYqHSu4o6wTwfgpSHb4RJZq-H-Jgu83WolxST-xrWmKodnBFx3vAhXJOIok-tqJqmaCJe7LvdsGlNdt9TKLRIPbKb7NqMblJhaRuqgYY2j4r6QrCOxS0FRzzXLUBCJTpfrR9rtD5c2iuxFimj3PG2MO-B6UyuDkfMgqWFfH6Zsx9ChNst0Jr5m6gztWuQnnE3pzDCL6unyrJkeBkBGKMn2zeeFJ_Cw8N7ioiGpZKwtbSfr4kN7Sdp2Ad9wo8_e4-cTO-Yzr-pHY4ODSc3X8TKOeT37EVr1SC8DSv1-MKdJFWAv_jNj5neD4IO5EXiEGkHMotiFuJ5ouBY9H_q7hpEjHmh8NwnuOjJTDX2SZ6XWYpAmmhoM8guFB4d6ddrsdX9qXP8xVSz4riol2Arvrw499Nyi1Weq5XMLb8hCFXT0_HtmE42e_Th5x0SVR4XtKgtf198lUc5K_QrJ5K5MpTeE7WCBBejbPLFPTYCSu6y=s512" alt="Logo Bubble Blast">
+    <h1>✨ Siente La Explosión De Sabor y Diversión ✨</h1>
+  </header>
+
+  <div class="seccion">
+    <h2>Nuestra Misión</h2>
+    <p>Nuestra misión es llevar una experiencia de sabor única y emocionante a cada persona, ofreciendo bebidas de burbujas que no solo refrescan, sino que también inspiran alegría y creatividad. Nos dedicamos a crear productos de alta calidad, con ingredientes frescos y vibrantes, para convertir cada sorbo en un momento de pura felicidad y explosión de sabores.</p>
+  </div>
+
+  <div class="seccion">
+    <h2>Nuestra Visión</h2>
+    <p>Ser la marca líder de bebidas de burbujas a nivel global, reconocida por nuestra innovación constante y por nuestra capacidad de crear experiencias memorables. Buscamos ser el símbolo de la diversión y la aventura en una botella, expandiendo nuestra presencia para que Bubble Blast se convierta en la elección favorita de las familias y amigos en todo el mundo.</p>
+  </div>
+  
+  <div class="lema">
+    "Donde la diversión explota en cada sorbo"
+  </div>
+
+  <section class="galeria">
+    <a href="verde.html">
+        <img src="https://lh3.googleusercontent.com/rd-gg-dl/AJfQ9KQe0_XJA34_yJVg2UiEfvwYlH8ucw2YfD9VTjKgJYEk3Q3KYq1f2l3ZYrNfVYqtmz3hAXeqbhUQRqJ2NFHlIUgjHSj_mWKccglsHkfLjgNWSlzV5nKXqHHmP0lHePkrARxiPSnkww9CA_ygp4AX4_42r_w95AZoXb0SoZU6rA1oa4n5syPOCDqLiStBFzM-0_rBF_os1LqPfr36o5jrX9_PKM01uFDqJPAfMIIwuMNzbfsYHalQ408QdIBosWPcbtCAC3mptxI-5yzEC6Q6eJNqx5p_sjPug5UFPr3Qoo06pbdUCs96zZ5-WA5zbs_mwsj1_mhNuk_DIh5jzH8D2WMI30jqSZzrle_SyTs2GAIeuMi7VBWLZAggQap7UG5l5RAF78MJaIlyLfzbuWao20FGurYR7Pwpoyrh2tdiOkjXQXMjyGgWg3PTqBM35o_PFs6B1axJSxbV1GfQn_zg2iypqdP2kSTE99rTgbItov1cIUw_CIEH_y1k0ZLenppqM-Fvbh67dfJeJBE09GVpO0cZ13DWJrHmNDGeauGdY4IWZXSL8tjD-3TL93N21lY4q4bteH1mutNSS35Ir8FoXVRrrDmBa6QMquwdxqEu6Q04J53D5hQ2s7uKsDbw5Re4fguW32qTmHkZDLS68ejpAsHPHHdvL4NhPBnfgHxAA55XGAScHuzC_eAM3JrYkBR4J-J66TaW-xdR198upevS6V2Kht88IbDn0mNSzPjKVa_C8V9lp4DI4gaWp0RPbDsfj8H2yuj5zvhEFhm06e5vUlFPP3KEsR0MQYzEYEuc2xAwG8bLjWFewt0gncstMViN9KTdBkdnX4gRTW_024qlJmBkOyWOUG6d1EqdeF6n5oaSdo7FnNVDnmq4knx6G5Jd8N38-exCo5efKW9fRagIQ1yD1qy3bQT686TMQuABzKmGNcHS981bP5Fs-iyOsMahVpsYaRD94Yv5REsFoNZWfomslXxy146JmKTqpQ8gQKShUnLED_Zth-OxNM0owIcB45uhMqOdmGGHqOLW4QuGef6pLEkYdVaZKzQG-faGJtgmBe7UXNk0_HM3YlqsxeFQxpxwMQ8RIr4Yly6ObRsEG8Ell4qO2-93qphKt_hxjYA-FYo5cg2C-2kHRJlrSmae26Oxg-IsCGogUqdPY9eW4-AsfLJYriIzlDtCdah2bflFvWeNoI_X03-wryTivBnVbeAdmws0dKSUmaIdXI2OrdrOLVnJyWvertQ0-jIqPZWQQqF4K10Xg_zoWNOn2QMNhZqfLkbOgNwDC10lwbt4H0CUHBA2DuuZMR5yaqQy4uS2PnHCk9NJaVDx_hfgpfPKPAFkYFn5tpcEbr_T2BweiV8qFHqz9QFcVko9kEUVMRwPt70Et9l1V-lT9tSbceI7KH0M7-ncpJHtGbtyxT6KzME7=s512" alt="Bubble Blast Verde">
+    </a>
+    <a href="rojo.html">
+        <img src="https://lh3.googleusercontent.com/rd-gg-dl/AJfQ9KQ98uvQBb2syCusWAP8QZovtFCuKyCeuDeMvezZr7Q5FK98LLsXP_IvwnPI73czAwSrD6jrSHl-rS8u0_Cma9bCGP0G__paR0OdqS8pGRSnNH7qJ_m-tlQwsLq7i0nU4ZREmZP_KgecI6bIps6MUjDEEr9rZYdVZ1nB4O7UYyWzN9nus5d_iEDlrfLGeHpt4LCpMaYfCDrzsK-CAxNtNd4rMULSMoJ2_HvycGnQbGAB5ir3QmUnGepqqGechIwj_ICEOmeQLR-gl3T8202O6wj1eYNE4D35lDKOmydNTiK-Ge9fokrJzW4qSnf7tnDaBjL9AyBJNPG7sKenWQtPCs_pBXsXqdLC0Ctf6qM00tXnQcviwmfVjbbznNgSXMthBm43Re0zCcZg7h4a6QLrPH9pQ6VvaZgP2KWW7Qi8xwEk7BFH3LujtcA3JRH-YE2B3_1gvp26tKGVuEU9NsuovTUDKd2CVwEoXnP3ukI-DmiVy7SWsQiyMDtjpHtiqPnLhDznZ9zZaK7SqfMruDQdYRNB7dM-q_YzGubmA0LmifBUlxdnFCZrJRpM3GeX1_yTMdqnLMG4x-JQHWcD_k851-9Hny1he6NCw7Nu1Eez8pcoC22Iy6--u59Tbh-0BMOjeu8AYs9672fnbmtLtG9D0kB9_hEPOVVR_ujj4oxmMLO72vCvjDDhJZBkc04ao_4YwZ7AGXbYSr0xkAsnVUG5VLsxrMzdpzhCzXBDYh4uSQEc8dRlE-7i5X9a2P09lq6lHglC1BmJX1Oen1sXd3sADm8ugAbRVWokOHdYHUndYJnlE4cxm3l-jz8BJWNHc94iv7Ol4wGPAF4JrFGS9zbKfKPzzcUCfi8t4_IEOnCJRyvFjp2DzZycAuHkIbead3q1ORLrrnDMa07moOZcUGzqIO907MLOp0-WgXW4A4mEex6TF5KhQgutYerLXgGGwFfWGeauCvRv3LuwMr4CzTyvF8p1AwyXosVOKcGxnYMD0AJcH9lGUDQKoi5les2_LtImx1H-_cKlo2bqPeNZk7BZG7OIXczCYysvfDz0SHu5PrAhuWPPpL3jaYBG7VG4Bvjh-37_FyltEsL_byO6yrIQJCBC-txrfym04vlLbsuIgV6gdIwJoP2Lxy3hZSJ4lhpnPXwLiLSxIuC9KcokJPD0nN-RnIR84L2RljGwKocTjEyeeKkDVbC1PPPGYc-XOo7JuhYUWWxtIJjClXvvtiXTxxZlBIUvg1Myd1MdCkZXmmdTvMQGhKmvUDksxH38oD2-kUjuPGxJjlRC-ExpuPTmrMt9_auM9hTxR2PFbbzQEWtXs8FYdlazaD_C-yzBY0R24FxZbkuJEspV35A_rOR9pJ8YevUcAJ5Lc42GGKC1TmofTUoGhnJ2-3YZBVVLl-pTDooLQDK9IpN1KbB_pdbetpc=s512" alt="Bubble Blast Rojo">
+    </a>
+    <a href="azul.html">
+        <img src="https://lh3.googleusercontent.com/rd-gg-dl/AJfQ9KTqyJSft26INS41USQAHcE9AyWRhZvqCGjJlybJ4ExpRmINHkwOQsk7e_tOhRWh0F6xg0gGrAY8eBYg9NVS80sZs7TIEx6vMhFVVm6cqCK0YSw6mRuL3psHKqCmhS9Rczf-0D1wecGPIUSsDCS2fpz5G-KM2r683R2kWP87lVPSAIDpToxd2QXSF4grdp-nnibRAetdYijCEMO7OYT1Dbub_vtjKrnVUcZeUbnbMxZIGeFI8_fSDozIBXequ3fgxdazyP2Km15IOY_WkEgjOE5xE-cNEfkkr4HlltIBtlwcPGXEtRMaRF01u05T5ZXSNFMtnGfyw3HxXID5D7S4NlsokDtB3YWcaAi7YudaqEzux394l7d528aJP77ouU5njiTCvCf8nsIdYgP2er35UbjW7KXf_MYH6LJCFvVBdtHVoE2ikETc3hlTwTZvD-ZxPRk1tC-QXJa4Y-wIUiVgbDC4Bzt4T0oSnhpauH5lqdKz8bYYGuwTrqwR9goggCaCWRkgK8TZHKi6O9rBdSKJrRlixhWL-J5LF9lzOK1Jxn1uT1MjIENxcolSOPAonMWYdyaxbcNSG4zkw921XgujGT20pPxN_p43l8hwfa1-VKaS9HX0fNr1N275FUzDSfWddW1mmFLnPlYaQ0v_ZCEcnz5ia5TRJvETjRNM71Fqk2egzrRwUsdSAoANmob52dymQIkhHDKrCjlVwwHWQR-W0qqdDiWye9eOeH5_kf2MyDDjRIZ6QQcgfZmtZejj3OXCyLNmtO4SJ_jJypKAlw8wGruzt04EwyFiEnCUAm60dAgb8yhGf5tr4tq87xMvlovlhWmjOK2eFh5hs_ctVTm9tBHD5q-qo9BINjZ7Dst75OABpWqLrYMg5xrowy1LN2z3v6n03Uq55kgWOvdW6vEAJbLH4o7lJsnUVlZ5_0M69OPz__JM3OO3fV9KSJtDGzfjZnc8i3vX3FyUZddfW-mVXSDI1amXqpA3ZcFQe_9Jr1ATRFGvI77XbUW3rA7FOR7EMsRBpctEcQ88L-5bEfVCz8FnhDmIZlfcvFpERy0T0qE65XdXfZbUqK5Vi9ib_K2qOQhQWzY0CN6zL3orcuPQUXi6gGMhha_q8Ve3yqSyMtS1s7psM9ZB_3uwyYZnvK07qLaFjlfwa7_YRncz1tiGNKB0_KT0zeRU5H4GXvbbVr0ndDfgbeM2vAx1ZIb780D_cA7dDbXXcLjxf9ASM3loYX3GXl0_2BVKnkrdYFfP8EBlBCxCyf0EAw3dWFzw06Tmqq9vFvfrYNu8GrATxCQUay8rvVzyOMUWyG9eJojSt_o3y6V-b00SUDSRbbNkrtrzM9QDp7QcqS6FxGJn-D9YbAI1FadZ3Ifr56-et6tRhTJcTR9jp5kWah-ZzzQj_tB8SVVHQeaJs_rCSGgiUVxTerQ=s512" alt="Bubble Blast Azul">
+    </a>
+    <a href="morado.html">
+        <img src="https://lh3.googleusercontent.com/rd-gg-dl/AJfQ9KQrp6TOxytG0XInbT-tiCi0VxZvzgN2hW7VkWM1v_hibSbJ_Qa5MZXyA-aAf7YIf6QMFJ2WFMQ8-Jv8twGdvAFfZF5oaYB4bd1tToaTQMclodt8Xc1Rsf52MSJQfbKFzS5dm1uhhqQSJyF57NgD4pbt5r_znBiOKL1ginKwtG5JwxdG2BtDxlj6vOKLU0M2N925L8BZeHG8MhkAQhjHDWfSfm0TetDUS_9NeAKzPqQVDkwHXHiMPPqknN95IERVlg9fMyHKljSzpQWqgkEucU3dkXzVSsQp4b6aq0O8TL3trHYPHLqVXTPOysGu4LVCsc6L6Dusi7RyySTzSvXCmyk7tJy50QsXPStd0pWkjgP0TxDXyanUEASettRdqMrQZlDmpE6a_eRfccKl7S2eXDDwFhqYrjJ2wG5eLypMWKvU8ta4KznDk_T_Ne96xUJPpyPnLh76jzsnpJ71gsBcf2hjRT1-ePBDc8oY_A8aOzhdjd9gAg3P09hxl9cGizazoSLAvjKkJujx2mwvRA5WYyjacwfJGHdLW-QSyCfjGFm6ul6n5CQyp4Hs7IJgbBIiXevjNUPMs4FOgKiEzGvooxrJ1Qd08fHkr7mkL3rQyTXZVDvHdsa9wzg4UMGY4pnOhZxqu2-L_8S-N7iYLZStPSMPkNr3ZnEygFZRZytHlHlsduEo0u7CC8lByGCIrsBE1n6QkDKKNtmxzttYhq5LeDRkc6AVWSraAn38WNGw91WVtFfwoO3UxmZ7Yu6a02fHqkUNJQX95FQRjQkUOr9zNP6wdvn0CoF-X2adPsn9vUTt1EvxqEIQlUU8FlzIop18HJF2lPxTBaCCNWug4HR26civO9b9EX47AvtuRh7_bHhKBM-7dBPV4emyHLPn1H_2QZtcECBru6e1nAef-pNsIdWx0BYlwtF5tEsmR32EzhBeDA3UQl188oTAxG9RDzcZ0zEtKooKTVXo0ZkR3KWoyNOxd5A97rJexmql8JWAyJk3s2Z3fBC0LWK2YBrKeQbyfaW_vjB412B5wL5wcGBq4W7wABuRL7fm4zs-JJoTQXmOQj4Q28MHx_J2QoU_xQ-wnY5ookdMCIxG3NWvNydsQ6riV5OdQDLCjs_gK5dCZs0_4wuBjA7S-7QEGh-EuiJ8ciKVW6DrkHv-NLN4tEgnsEr8T8-enakqjtvqscbu2A6ogfYPpHcjKQajIpRSGu61SsdzMNIRUl0AmBTePlG8PvTU27iQNDBiNTqremyh2WaAf4A_3m4xdTEp4H-oyIWnWs5Fg44xSLdj3x2vyl-Zv18rO7hUdJThhCUT7IpIkkZBPrcZdy_cVW7CpqLdcXcCSMH66yq2hdmEDoayYB0LQ7jsvonN20RgvIXBPr_ZU8rJjAIsULKOszd6b8ZzKbtxpmyxvMxy3uY-eprmqF3_jIg1=s512" alt="Bubble Blast Morado">
+    </a>
+  </section>
+
+  <footer>
+    <p>© 2025 Bubble Blast - Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    function crearBurbujas() {
+      const body = document.body;
+      const bubble = document.createElement("div");
+      const size = Math.random() * 40 + 10 + "px";
+      bubble.classList.add("bubble");
+      bubble.style.width = size;
